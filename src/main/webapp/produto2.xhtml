@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+<h:head>
+	<title>Cadastro de Hardwares</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="template.css" />
+	<h:outputStylesheet library="css" name="table.css" />
+</h:head>
+<h:body>
+	<center>
+		<h:form id="formPrincipal">
+			<h:messages id="messages" globalOnly="false" infoStyle="color:green;"
+				warnStyle="color:yellow;" errorStyle="color:red;" />
+			<h:panelGrid id="pgPrincipal" columns="">
+
+				<f:facet name="header">
+					<h:panelGrid columns="">
+						<h:commandButton class="btn btn-outline-primary" value="Voltar"
+							actionListener="#{hardware2Controller.voltar}">
+							<f:ajax execute="@this" />
+						</h:commandButton>
+						<h1>Cadastro de Hardwares</h1>
+					</h:panelGrid>
+				</f:facet>
+
+				<h:outputLabel value="Nome: " />
+				<h:inputText class="form-control" id="itNome"
+					value="#{hardware2Controller.hardware.nome}" />
+
+				<h:outputLabel value="Valor:" />
+				<h:inputText class="form-control"
+					value="#{hardware2Controller.hardware.valor}" />
+
+				<h:outputLabel value="Quantidade:" />
+				<h:inputText class="form-control"
+					value="#{hardware2Controller.hardware.qtdEstoque}" />
+
+				<h:outputLabel value="Fornecedor:" />
+				<h:selectOneMenu class="form-control"
+					value="#{hardware2Controller.hardware.fornecedor}">
+					<f:selectItem itemLabel="Selecione um Fornecedor ..." />
+					<f:selectItems var="obj"
+						value="#{hardware2Controller.listaFornecedor}"
+						itemLabel="#{obj.label}" itemValue="#{obj}" />
+				</h:selectOneMenu>
+
+				<h:outputLabel value="Especificações" />
+				<h:selectOneMenu class="form-control"
+					value="#{hardware2Controller.hardware.especificacoes}">
+					<f:selectItem itemLabel="Selecione uma especificação" />
+					<f:selectItems value="#{hardware2Controller.listaEspecificacoes}"
+						var="especificacoes" itemLabel="#{especificacoes.nome}"
+						itemValue="#{especificacoes}" />
+				</h:selectOneMenu>
+
+			</h:panelGrid>
+			<h:commandButton class="btn btn-outline-success" value="Incluir"
+				actionListener="#{hardware2Controller.incluir}"
+				disabled="#{hardware2Controller.hardware.id!=null}">
+			</h:commandButton>
+
+			<h:commandButton class="btn btn-outline-warning" value="Alterar"
+				actionListener="#{hardware2Controller.alterar}"
+				disabled="#{hardware2Controller.hardware.id==null}" />
+				
+			<h:commandButton class="btn btn-outline-danger" value="Excluir"
+				actionListener="#{hardware2Controller.excluir}"
+				disabled="#{hardware2Controller.hardware.id==null}">
+				<f:ajax render="formPrincipal" />
+			</h:commandButton>
+
+			<h:commandButton class="btn btn-outline-secondary" value="Limpar"
+				actionListener="#{hardware2Controller.limpar}">
+				<f:ajax render="@all" />
+			</h:commandButton>
+		</h:form>
+	</center>
+</h:body>
+</html>
